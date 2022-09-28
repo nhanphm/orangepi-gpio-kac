@@ -29,6 +29,10 @@ def my_callback(channel):
 
 
 # Wait for a button press on the selected pin (pin pulled to ground, falling edge)
-#GPIO.wait_for_edge(InputPin, GPIO.FALLING)
+while True:
+    GPIO.wait_for_edge(InputPin, GPIO.BOTH)
+    my_callback(InputPin)
+    time.sleep(1)
+    
 
-GPIO.add_event_detect(InputPin, GPIO.BOTH, callback=my_callback(InputPin))  
+#GPIO.add_event_detect(InputPin, GPIO.BOTH, callback=my_callback(InputPin))  
