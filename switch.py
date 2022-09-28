@@ -9,7 +9,7 @@ InputPin = 12 #PA07/PA_EINT7/SIM_CLK
 LedOnPin = 13 #PA00/UART2_TX
 
 # Set selected pin to input, need pullup resistor external in 3.3V and pin select.
-GPIO.setup(InputPin, GPIO.IN)
+GPIO.setup(InputPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 # Set selected pin to output.
 GPIO.setup(LedOnPin, GPIO.OUT)
 
