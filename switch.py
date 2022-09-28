@@ -9,7 +9,7 @@ InputPin = 12 #PA07/PA_EINT7/SIM_CLK
 LedOnPin = 13 #PA00/UART2_TX
 
 # Set selected pin to input, need pullup resistor external in 3.3V and pin select.
-GPIO.setup(InputPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(InputPin, GPIO.IN)
 # Set selected pin to output.
 GPIO.setup(LedOnPin, GPIO.OUT)
 
@@ -29,10 +29,9 @@ def my_callback(channel):
 
 
 # Wait for a button press on the selected pin (pin pulled to ground, falling edge)
-while True:
-    GPIO.wait_for_edge(InputPin, GPIO.BOTH)
-    my_callback(InputPin)
-    time.sleep(1)
+GPIO.wait_for_edge(InputPin, GPIO.BOTH)
+my_callback(InputPin)
+time.sleep(1)
     
 
 #GPIO.add_event_detect(InputPin, GPIO.BOTH, callback=my_callback(InputPin))  
