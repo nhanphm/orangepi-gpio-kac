@@ -23,20 +23,18 @@ else:
 
 # Define a threaded callback function to run in another thread when events are detected  
 def my_callback(channel):  
-    if GPIO.input(channel):     # if port 25 == 1  
-        print("Rising edge detected on ",channel)  
-    else:                  # if port 25 != 1  
-        print("Falling edge detected on", channel)  
+    if GPIO.input(InputPin) != preState:
+        preState = GPIO.input(InputPin)
+        if GPIO.input(channel):     # if port 25 == 1  
+            print("Rising edge detected on ",channel)  
+        else:                  # if port 25 != 1  
+            print("Falling edge detected on", channel)  
 
 
 # Wait for a button press on the selected pin (pin pulled to ground, falling edge)
 #GPIO.wait_for_edge(InputPin, GPIO.BOTH)
 while True:
-    GPIO.wait_for_edge(InputPin, GPIO.BOTH)
-    if GPIO.input(InputPin) != preState:
-        my_callback(InputPin)
-        preState = GPIO.input(InputPin)
-        pass
+    GPIO.add_event_detect(25, GPIO.BOTH, callback=my_callback)  
     
 
 #GPIO.add_event_detect(InputPin, GPIO.BOTH, callback=my_callback(InputPin))  
