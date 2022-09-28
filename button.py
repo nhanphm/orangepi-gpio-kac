@@ -19,7 +19,6 @@ button = connector.gpio3p40
 gpio.init()
 
 """Set directions"""
-gpio.setcfg(led, gpio.OUTPUT)
 gpio.setcfg(button, gpio.INPUT)
 
 """Enable pullup resistor"""
