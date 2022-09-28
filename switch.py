@@ -8,6 +8,7 @@ GPIO.setmode(GPIO.BOARD)
 #Select unused GPIO header pin to be used for shutdown
 InputPin = 12 #PA07/PA_EINT7/SIM_CLK
 LedOnPin = 13 #PA00/UART2_TX
+preState = GPIO.LOW
 
 # Set selected pin to input, need pullup resistor external in 3.3V and pin select.
 GPIO.setup(InputPin, GPIO.IN)
