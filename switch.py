@@ -14,7 +14,7 @@ GPIO.setup(InputPin, GPIO.IN)
 GPIO.setup(LedOnPin, GPIO.OUT)
 
 GPIO.output(LedOnPin, 1)
-
+preState = GPIO.input(InputPin)
 if GPIO.input(InputPin):
     print('Input was HIGH')
 else:
@@ -31,8 +31,11 @@ def my_callback(channel):
 # Wait for a button press on the selected pin (pin pulled to ground, falling edge)
 #GPIO.wait_for_edge(InputPin, GPIO.BOTH)
 while True:
-    my_callback(InputPin)
-    time.sleep(1)
+    GPIO.wait_for_edge(InputPin, GPIO.BOTH)
+    if GPIO.input(InputPin) != preState:
+        my_callback(InputPin)
+        preState = GPIO.input(InputPin)
+        pass
     
 
 #GPIO.add_event_detect(InputPin, GPIO.BOTH, callback=my_callback(InputPin))  
