@@ -21,7 +21,7 @@ else:
     print('Input was LOW')
 while True:
     # Wait for a button press on the selected pin (pin pulled to ground, falling edge)
-    GPIO.wait_for_edge(InputPin, GPIO.BOTH)
+    GPIO.wait_for_edge(InputPin, GPIO.FALLING)
     if GPIO.input(InputPin):
         print('Input was switch to HIGH')
     else:
