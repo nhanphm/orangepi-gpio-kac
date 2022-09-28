@@ -19,13 +19,16 @@ if GPIO.input(InputPin):
     print('Input was HIGH')
 else:
     print('Input was LOW')
-while True:
-    # Wait for a button press on the selected pin (pin pulled to ground, falling edge)
-    GPIO.wait_for_edge(InputPin, GPIO.FALLING)
-    if GPIO.input(InputPin):
-        print('Input was switch to HIGH')
-    else:
-        print('Input was switch LOW')
-        GPIO.output(LedOnPin, 0)
 
-        print ("*** Netctl shutdown activated ***")
+# Define a threaded callback function to run in another thread when events are detected  
+def my_callback(channel):  
+    if GPIO.input(channel):     # if port 25 == 1  
+        print (f"Rising edge detected on {channel}")  
+    else:                  # if port 25 != 1  
+        print (f"Falling edge detected on {channel}")  
+
+
+# Wait for a button press on the selected pin (pin pulled to ground, falling edge)
+#GPIO.wait_for_edge(InputPin, GPIO.FALLING)
+
+GPIO.add_event_detect(InputPin, GPIO.BOTH, callback=my_callback(InputPin))  
