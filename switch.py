@@ -2,6 +2,7 @@
 import OPi.GPIO as GPIO # to install "pip3 install --upgrade OPi.GPIO"
 import time
 import subprocess
+GPIO.cleanup()
 GPIO.setmode(GPIO.BOARD)
 
 #Select unused GPIO header pin to be used for shutdown
