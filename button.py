@@ -13,7 +13,7 @@ from pyA20.gpio import gpio
 from pyA20.gpio import connector
 from pyA20.gpio import port
 
-button = port.PA11
+button = connector.gpio3p40
 
 """Init gpio module"""
 gpio.init()
@@ -31,6 +31,7 @@ try:
     while True:
         state = gpio.input(button)      # Read button state
 
+        """Since we use pull-up the logic will be inverted"""
         print ("Button Status:", state)
 
 except KeyboardInterrupt:
