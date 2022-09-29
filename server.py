@@ -55,7 +55,7 @@ def sendSocket(_type, _state):
 
     for ip in allips:
         try:
-            print(f'sending on {ip}')
+            print('sending on ',ip)
             sock = socket.socket(
                 socket.AF_INET, socket.SOCK_DGRAM, socket.IPPROTO_UDP)  # UDP
             sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
