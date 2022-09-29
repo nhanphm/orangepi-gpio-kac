@@ -12,7 +12,7 @@ def sendSocket(_type, _state):
     state = _state if len(_state) > 0 else "0"
     clientId = "all"
     type = _type if len(_type) > 0 else "1"
-    body = f"{serverMac}-{state}-{clientId}-{type}"
+    body = serverMac+'-'+state+'-'+clientId+'-'+type
 
     bodyBytes = bytearray()
     bodyBytes.extend(map(ord, body))
@@ -66,4 +66,3 @@ def sendSocket(_type, _state):
             print("An exception occurred when sending to", ip)
 
     print(f'Done sending')
-
