@@ -2,6 +2,7 @@
 import OPi.GPIO as GPIO # to install "pip3 install --upgrade OPi.GPIO"
 import time
 import subprocess
+from server import sendSocket
 GPIO.cleanup()
 GPIO.setmode(GPIO.BOARD)
 
@@ -29,7 +30,11 @@ def my_callback(channel):
 
 # Wait for a button press on the selected pin (pin pulled to ground, falling edge)
 #GPIO.wait_for_edge(InputPin, GPIO.BOTH)
-button_1 = True
+STATE_ON = '1'
+STATE_OFF = '0'
+BUTTON_1 = '0'
+BUTTON_2 = '1'
+
 button_1_state=GPIO.PUD_UP
 button_2 = True
 button_2_state=GPIO.PUD_UP
@@ -38,17 +43,21 @@ while  True:
         button_1_state = GPIO.input(InputPin_1)
         print("Button 1 Switch")
         if GPIO.input(InputPin_1):     # if port 25 == 1  
-            print("Buton 1 ON")  
-        else:                  # if port 25 != 1  
             print("Buton 1 OFF")
+            sendSocket(BUTTON_1, STATE_OFF)  
+        else:                  # if port 25 != 1  
+            print("Buton 1 ON")
+            sendSocket(BUTTON_1, STATE_ON)
     
     if GPIO.input(InputPin_2) != button_2_state:
         button_2_state = GPIO.input(InputPin_2)
         print("Button 2 Switch")
         if GPIO.input(InputPin_2):     # if port 25 == 1  
-            print("Buton 2 ON")  
+            print("Buton 2 OFF")  
+            sendSocket(BUTTON_2, STATE_OFF)
         else:                  # if port 25 != 1  
-            print("Buton 2 OFF")
+            print("Buton 2 ON")
+            sendSocket(BUTTON_2, STATE_ON)
 
     time.sleep(1)
 
