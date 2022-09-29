@@ -65,4 +65,4 @@ def sendSocket(_type, _state):
         except:
             print("An exception occurred when sending to", ip)
 
-    print(f'Done sending')
+    print('Done sending')
