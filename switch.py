@@ -6,16 +6,15 @@ GPIO.cleanup()
 GPIO.setmode(GPIO.BOARD)
 
 #Select unused GPIO header pin to be used for shutdown
-InputPin = 12 #PA07/PA_EINT7/SIM_CLK
-LedOnPin = 13 #PA00/UART2_TX
+InputPin_1 = 13 #PA07/PA_EINT7/SIM_CLK
+InputPin_2 = 15 #PA00/UART2_TX
 
 # Set selected pin to input, need pullup resistor external in 3.3V and pin select.
-GPIO.setup(InputPin, GPIO.IN)
+GPIO.setup(InputPin_1, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+GPIO.setup(InputPin_2, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 # Set selected pin to output.
-GPIO.setup(LedOnPin, GPIO.OUT)
 
-GPIO.output(LedOnPin, 1)
-if GPIO.input(InputPin):
+if GPIO.input(InputPin_1):
     print('Input was HIGH')
 else:
     print('Input was LOW')
@@ -30,7 +29,27 @@ def my_callback(channel):
 
 # Wait for a button press on the selected pin (pin pulled to ground, falling edge)
 #GPIO.wait_for_edge(InputPin, GPIO.BOTH)
-GPIO.add_event_detect(InputPin, GPIO.BOTH, callback=my_callback(InputPin))   
+button_1 = True
+button_1_state=GPIO.PUD_UP
+button_2 = True
+button_2_state=GPIO.PUD_UP
+while  True:
+    if GPIO.input(InputPin_1) != button_1_state:
+        button_1_state = GPIO.input(InputPin_1)
+        print("Button 1 Switch")
+        if GPIO.input(InputPin_1):     # if port 25 == 1  
+            print("Buton 1 ON")  
+        else:                  # if port 25 != 1  
+            print("Buton 1 OFF")
     
+    if GPIO.input(InputPin_2) != button_2_state:
+        button_2_state = GPIO.input(InputPin_2)
+        print("Button 2 Switch")
+        if GPIO.input(InputPin_2):     # if port 25 == 1  
+            print("Buton 2 ON")  
+        else:                  # if port 25 != 1  
+            print("Buton 2 OFF")
+
+    time.sleep(1)
 
 #GPIO.add_event_detect(InputPin, GPIO.BOTH, callback=my_callback(InputPin))  
